@@ -27,10 +27,11 @@ Route::middleware(['auth','verified'])
     //il prefisso della rotta sarà /admin
     ->prefix('admin')
     ->group(function () {
-        
+
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])
         ->name('dashboard');
         //tutte le rotte qui dentro saranno protette dalla autenticazione.
+        Route::resource('posts', PostController::class);
 });
 
 
