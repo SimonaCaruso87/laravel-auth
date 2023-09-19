@@ -21,11 +21,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth','verified'])->group(function () {
-
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-
+Route::middleware(['auth','verified'])
+    //tutte le rotte che avremo qui dentro avranno il name che inzia con admin.
+    ->name('admin.')
+    //il prefisso della rotta sarà /admin
+    ->prefix('admin')
+    ->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+        ->name('dashboard');
+        //tutte le rotte qui dentro saranno protette dalla autenticazione.
 });
+
+
 // questa rotta è protetta dal middleware
 
 // Route::get('/dashboard', function () {
